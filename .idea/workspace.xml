@@ -7,14 +7,18 @@
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
   <component name="ProjectId" id="1WeuR4kBnCvQit2zqbUc6rfgQO3" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showExcludedFiles" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
-    <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
+    <property name="settings.editor.selected.configurable" value="vcs.Git" />
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
@@ -75,10 +79,18 @@
     <servers />
   </component>
   <component name="WindowStateProjectService">
+    <state x="552" y="214" key="#Notifications" timestamp="1579525259452">
+      <screen x="0" y="30" width="1920" height="1050" />
+    </state>
+    <state x="552" y="214" key="#Notifications/0.30.1920.1050@0.30.1920.1050" timestamp="1579525259452" />
     <state x="640" y="284" key="#com.intellij.openapi.updateSettings.impl.PluginUpdateInfoDialog" timestamp="1579522420649">
       <screen x="0" y="30" width="1920" height="1050" />
     </state>
     <state x="640" y="284" key="#com.intellij.openapi.updateSettings.impl.PluginUpdateInfoDialog/0.30.1920.1050@0.30.1920.1050" timestamp="1579522420649" />
+    <state x="740" y="310" key="FileChooserDialogImpl" timestamp="1579525435972">
+      <screen x="0" y="30" width="1920" height="1050" />
+    </state>
+    <state x="740" y="310" key="FileChooserDialogImpl/0.30.1920.1050@0.30.1920.1050" timestamp="1579525435972" />
     <state width="949" height="285" key="GridCell.Tab.0.bottom" timestamp="1579524542926">
       <screen x="0" y="30" width="1920" height="1050" />
     </state>
@@ -95,13 +107,13 @@
       <screen x="0" y="30" width="1920" height="1050" />
     </state>
     <state width="949" height="285" key="GridCell.Tab.0.right/0.30.1920.1050@0.30.1920.1050" timestamp="1579524542925" />
-    <state x="461" y="198" key="SettingsEditor" timestamp="1579523990362">
+    <state x="461" y="198" key="SettingsEditor" timestamp="1579525460515">
       <screen x="0" y="30" width="1920" height="1050" />
     </state>
-    <state x="461" y="198" key="SettingsEditor/0.30.1920.1050@0.30.1920.1050" timestamp="1579523990362" />
-    <state x="656" y="380" key="com.intellij.ide.util.TipDialog" timestamp="1579522526012">
+    <state x="461" y="198" key="SettingsEditor/0.30.1920.1050@0.30.1920.1050" timestamp="1579525460515" />
+    <state x="656" y="380" key="com.intellij.ide.util.TipDialog" timestamp="1579524811336">
       <screen x="0" y="30" width="1920" height="1050" />
     </state>
-    <state x="656" y="380" key="com.intellij.ide.util.TipDialog/0.30.1920.1050@0.30.1920.1050" timestamp="1579522526012" />
+    <state x="656" y="380" key="com.intellij.ide.util.TipDialog/0.30.1920.1050@0.30.1920.1050" timestamp="1579524811336" />
   </component>
 </project>
