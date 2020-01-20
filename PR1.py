@@ -9,9 +9,9 @@ dataset = '2828RGB'
 n_train = 6999
 n_test = 3015
 file_path = os.path.dirname(os.path.realpath(__file__))
+
 data_path = ''
 cols = dim1 = dim2 = dim3 = 0
-
 if dataset == '2828L':
     cols = 785
     dim1 = 28
