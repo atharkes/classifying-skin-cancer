@@ -51,7 +51,7 @@ for i, n in enumerate(train):
     y_train[i] = y
 test = q[(n_train + 1):]
 train_new = np.expand_dims(x_train, axis=2)
-x_train2 = train_new.reshape(n_train, dim1, dim2, dim3)
+x_train2 = train_new.reshape((n_train, dim1, dim2, dim3))
 y_train2 = y_train.reshape(n_train, )
 
 x_test = np.empty([n_test, (cols - 1)])
@@ -62,7 +62,7 @@ for i, n in enumerate(test):
     x_test[i] = x
     y_test[i] = y
 test_new = np.expand_dims(x_test, axis=2)
-x_test2 = test_new.reshape(n_test, dim1, dim2, dim3)
+x_test2 = test_new.reshape((n_test, dim1, dim2, dim3))
 y_test2 = y_test.reshape(n_test, )
 
 # x_train2 = np.expand_dims(x_train2,axis=3)
@@ -73,7 +73,7 @@ filter_size = 5
 pool_size = 2
 padding = 'same'
 
-# Build the model.
+# Build the model
 model = Sequential()
 model.add(Conv2D(num_filters, filter_size, input_shape=(dim1, dim2, dim3)))
 model.add(BatchNormalization())
@@ -99,6 +99,6 @@ model.fit(
     to_categorical(y_train2),
     epochs=200,
     shuffle=True,
-    batch_size=20,
+    batch_size=50,
     validation_data=(x_test2, to_categorical(y_test2)),
 )
