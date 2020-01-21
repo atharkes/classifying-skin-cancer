@@ -1,16 +1,13 @@
 import numpy as np
-# import tensorflow as tf
-# from tensorflow.keras.models import Sequential
-# from tensorflow.keras.layers import Conv2D, MaxPooling2D, Dense, Flatten
-# from tensorflow.keras.utils import to_categorical
-# from PIL import Image
 import os
 import sys
 import csv
 from PIL import Image
 
+# The size the images should be after cropping and resizing
 new_size = 28
 
+# Make sure console can print full arrays
 np.set_printoptions(threshold=sys.maxsize)
 
 def resize_images(dir, label, new_size=28):
@@ -58,7 +55,7 @@ dir_isic_akiec = dir_isic + r'actinic keratosis/'
 dir_isic_bcc = dir_isic + r'basal cell carcinoma/'
 dir_isic_bkl = dir_isic + r'pigmented benign keratosis/'
 dir_isic_df = dir_isic + r'dermatofibroma/'
-# dir_isic_nv = dir_isic + ONTBREEKT IN DATA
+# dir_isic_nv = ONTBREEKT IN DATA
 dir_isic_vasc = dir_isic + r'vascular lesion/'
 dir_isic_mel = dir_isic + r'melanoma/'
 
@@ -71,14 +68,13 @@ flat_isic_df = resize_images(dir_isic_df, 3, new_size)
 flat_isic_vasc = resize_images(dir_isic_vasc, 5, new_size)
 flat_isic_mel = resize_images(dir_isic_mel, 6, new_size)
 
-
-# Create a 2D array for all pixel values and their label
+# Create column names row
 col_names = np.array([])
-
 for i in range(0, new_size * new_size * 3):
     col_names = np.append(col_names, "pixel" + str(i).zfill(4))
-
 col_names = np.append(col_names, 'label')
+
+# Create a 2D array for all pixel values and their label
 flat_imgs = np.concatenate((flat_isic_akiec, flat_isic_bcc, flat_isic_bkl, flat_isic_df, flat_isic_vasc, flat_isic_mel), axis=0)
 
 # Convert to a CSV file
