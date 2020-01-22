@@ -7,9 +7,9 @@ from tensorflow.keras.layers import Conv2D, MaxPooling2D, Dense, Flatten, Activa
 from tensorflow.keras.utils import to_categorical
 
 dataset = '2828RGB'
-n_train = 6999
-n_test = 3015
-binary_labels = True
+n_train = 7000
+n_test = 3014
+binary_labels: bool = True
 
 n_labels = 2 if binary_labels else 7
 file_path = os.path.dirname(os.path.realpath(__file__))
@@ -133,6 +133,8 @@ model.fit(
 )
 
 acc = model.evaluate(x_test2, to_categorical(y_test2))
-dt_string = datetime.now().strftime("%d-%m-%Y_%H-%M-%S")
-model_path = "{0}\\Models\\model{1}_{2:.2f}_{3:.2f}_{4}.h5".format(file_path, dataset, acc[1], acc[0], dt_string)
+dataset_string = dataset if not binary_labels else dataset + 'BINARY'
+datetime_string = datetime.now().strftime("%d-%m-%Y_%H-%M-%S")
+model_path_format = "{0}\\Models\\model{1}_{2:.2f}_{3:.2f}_{4}.h5"
+model_path = model_path_format.format(file_path, dataset_string, acc[1], acc[0], datetime_string)
 model.save(model_path)
