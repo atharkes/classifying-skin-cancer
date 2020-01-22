@@ -1,15 +1,18 @@
 import numpy as np
 import os
 
+from datetime import datetime
 from tensorflow.keras.models import Sequential
-from tensorflow.keras.layers import Conv2D, MaxPooling2D, Dense, Flatten, Activation, BatchNormalization
+from tensorflow.keras.layers import Conv2D, MaxPooling2D, Dense, Flatten, Activation, BatchNormalization, Dropout
 from tensorflow.keras.utils import to_categorical
 
 dataset = '2828RGB'
 n_train = 6999
 n_test = 3015
-file_path = os.path.dirname(os.path.realpath(__file__))
+binary_labels = True
 
+n_labels = 2 if binary_labels else 7
+file_path = os.path.dirname(os.path.realpath(__file__))
 data_path = ''
 cols = dim1 = dim2 = dim3 = 0
 if dataset == '2828L':
@@ -86,14 +89,14 @@ model.add(MaxPooling2D(pool_size=pool_size))
 model.add(Flatten())
 model.add(Dense(7, activation='softmax'))
 
-# Compile the model.
+# Compile the model
 model.compile(
     'adam',
     loss='categorical_crossentropy',
     metrics=['accuracy'],
 )
 
-# Train the model.
+# Train the model
 model.fit(
     x_train2,
     to_categorical(y_train2),
@@ -102,3 +105,8 @@ model.fit(
     batch_size=50,
     validation_data=(x_test2, to_categorical(y_test2)),
 )
+
+acc = model.evaluate(x_test2, to_categorical(y_test2))
+dt_string = datetime.now().strftime("%d-%m-%Y_%H-%M-%S")
+model_path = "{0}\\Models\\model{1}_{2:.2f}_{3:.2f}_{4}.h5".format(file_path, dataset, acc[1], acc[0], dt_string)
+model.save(model_path)
