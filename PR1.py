@@ -3,7 +3,7 @@ import os
 
 from datetime import datetime
 from tensorflow.keras.models import Sequential
-from tensorflow.keras.layers import Conv2D, MaxPooling2D, Dense, Flatten, Activation, BatchNormalization, Dropout
+from tensorflow.keras.layers import Conv2D, MaxPooling2D, Dense, Flatten, Activation, Dropout
 from tensorflow.keras.utils import to_categorical
 
 dataset = '2828RGB'
@@ -39,19 +39,29 @@ if dataset == '88RGB':
     dim2 = 8
     dim3 = 3
     data_path = file_path + r'\Data\hmnist_8_8_RGB.csv'
-
+dims = (dim1, dim2, dim3)
 txt = np.loadtxt(data_path, delimiter=',', dtype=str, usecols=range(cols))
 a = np.delete(txt, 0, 0)
 q = a.astype(int)
+np.random.shuffle(q)
 
 train = q[0:n_train]
 x_train = np.empty([n_train, (cols - 1)])
 y_train = np.empty([n_train, 1])
-for i, n in enumerate(train):
-    y = np.array(n[len(n) - 1])
-    x = np.array(n[:len(n) - 1])
+for i, row in enumerate(train):
+    y = int(np.array(row[len(row)-1]))
+    x = np.array(row[:len(row)-1])
     x_train[i] = x
-    y_train[i] = y
+    if not binary_labels:
+        # Using 7 labels
+        y_train[i] = y
+    if binary_labels and y != 0 and y != 1 and y != 6:
+        # Benign for Binary labels
+        y_train[i] = 0
+    if binary_labels and y != 2 and y != 3 and y != 4 and y != 5:
+        # Malignant for Binary labels
+        y_train[i] = 1
+
 test = q[(n_train + 1):]
 train_new = np.expand_dims(x_train, axis=2)
 x_train2 = train_new.reshape((n_train, dim1, dim2, dim3))
@@ -60,40 +70,56 @@ y_train2 = y_train.reshape(n_train, )
 x_test = np.empty([n_test, (cols - 1)])
 y_test = np.empty([n_test, 1])
 for i, n in enumerate(test):
-    y = np.array(n[len(n) - 1])
-    x = np.array(n[:len(n) - 1])
+    y = np.array(n[len(n)-1])
+    x = np.array(n[:len(n)-1])
     x_test[i] = x
-    y_test[i] = y
+    if not binary_labels:  # when using 7 labels
+        y_test[i] = y
+    if binary_labels and y != 0 and y != 1 and y != 6:  # benign binary labels
+        y_test[i] = 0
+    if binary_labels and y != 2 and y != 3 and y != 4 and y != 5:  # malignant binary labels
+        y_test[i] = 1
 test_new = np.expand_dims(x_test, axis=2)
 x_test2 = test_new.reshape((n_test, dim1, dim2, dim3))
 y_test2 = y_test.reshape(n_test, )
 
-# x_train2 = np.expand_dims(x_train2,axis=3)
-# x_test2 = np.expand_dims(x_test2,axis=3)
-
 num_filters = 10
-filter_size = 5
+filter_size = 2
 pool_size = 2
 padding = 'same'
 
-# Build the model
+# Build the model.
 model = Sequential()
-model.add(Conv2D(num_filters, filter_size, input_shape=(dim1, dim2, dim3)))
-model.add(BatchNormalization())
+model.add(Conv2D(num_filters, filter_size, input_shape=dims))
+model.add(Activation('relu'))
+model.add(Conv2D(num_filters, filter_size, input_shape=dims))
+model.add(Activation('relu'))
+model.add(Conv2D(num_filters, filter_size, input_shape=dims))
+model.add(Activation('relu'))
+model.add(Conv2D(num_filters, filter_size, input_shape=dims))
+model.add(Activation('relu'))
+model.add(Conv2D(num_filters, filter_size, input_shape=dims))
 model.add(Activation('relu'))
 model.add(MaxPooling2D(pool_size=pool_size))
-model.add(Conv2D(num_filters, filter_size, input_shape=(dim1, dim2, dim3)))
-model.add(BatchNormalization())
+model.add(Conv2D(num_filters, filter_size, input_shape=dims))
 model.add(Activation('relu'))
-model.add(MaxPooling2D(pool_size=pool_size))
+model.add(Conv2D(num_filters, filter_size, input_shape=dims))
+model.add(Activation('relu'))
+model.add(Conv2D(num_filters, filter_size, input_shape=dims))
+model.add(Activation('relu'))
+model.add(Conv2D(num_filters, filter_size, input_shape=dims))
+model.add(Activation('relu'))
+model.add(Conv2D(num_filters, filter_size, input_shape=dims))
+model.add(Dropout(0.5))
+model.add(Activation('relu'))
 model.add(Flatten())
-model.add(Dense(7, activation='softmax'))
+model.add(Dense(n_labels, activation='softmax'))
 
-# Compile the model
+# Compile the model.
 model.compile(
-    'adam',
-    loss='categorical_crossentropy',
-    metrics=['accuracy'],
+  'adam',
+  loss='categorical_crossentropy',
+  metrics=['accuracy'],
 )
 
 # Train the model
