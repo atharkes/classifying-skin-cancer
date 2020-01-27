@@ -1,1 +1,1 @@
-# Classifying-Skin-Cancer
+# Classifying Skin Cancer
